@@ -20,15 +20,14 @@ function enqueue() {
   if (value) {
     let newElement = document.createElement("div");
     newElement.classList.add("queue_element");
-    if(size === 0) {
+    if (size === 0) {
       newElement.innerHTML = `<div class="absolute flex flex-col items-center top-[-25px] sm:block hidden text-black">
       <span>Front</span>
       <svg class="w-4 rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
       </div>${value}`;
-    }
-    else {
+    } else {
       let allQueueElement = document.querySelectorAll(".queue_element");
-      if(size > 1) {
+      if (size > 1) {
         allQueueElement[size - 1].innerHTML = queue[size - 1];
       }
       newElement.innerHTML = `<div class="absolute flex flex-col items-center top-[-25px] sm:block hidden text-black">
@@ -98,7 +97,6 @@ function dequeue() {
     enqueue_button.disabled = true;
     reset_button.disabled = true;
     dequeueSound.play();
-    
   } else {
     message.innerText = "Queue is empty";
     message.style.opacity = 1;

@@ -1,92 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Queue Visualizer</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <!-- Tailwind css -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- logo -->
-     <link rel="shortcut icon" href="./Assets/logo.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="./Assets/logo.jpg" type="image/x-icon" />
     <style>
-        .queue_element {
-            width: 64px;           /* w-16 */
-            height: 48px;          /* h-12 */
-            border-radius: 0.5rem; /* rounded-lg */
-            background-color: #60a5fa; /* bg-blue-400 */
-            margin-right: 0.5rem;  /* mr-2 */
-            display: flex;              /* flex */
-            justify-content: center;    /* justify-center */
-            align-items: center;        /* items-center */
-            font-size: 1.125rem;        /* text-lg */
-            font-weight: 600;           /* font-semibold */
-            color: #ffffff;  
-            overflow-y: auto;
-            scrollbar-width: none;
-            flex-shrink: 0;
-            transition-duration: 400ms;
-        }
+      .queue_element {
+        width: 64px; /* w-16 */
+        height: 48px; /* h-12 */
+        border-radius: 0.5rem; /* rounded-lg */
+        background-color: #60a5fa; /* bg-blue-400 */
+        margin-right: 0.5rem; /* mr-2 */
+        display: flex; /* flex */
+        justify-content: center; /* justify-center */
+        align-items: center; /* items-center */
+        font-size: 1.125rem; /* text-lg */
+        font-weight: 600; /* font-semibold */
+        color: #ffffff;
+        overflow-y: auto;
+        scrollbar-width: none;
+        flex-shrink: 0;
+        transition-duration: 400ms;
+      }
 
-        #queue-container {
-            scrollbar-width: thin;
-        }
+      #queue-container {
+        scrollbar-width: thin;
+      }
 
-        .no-select {
+      .no-select {
         user-select: none; /* Standard syntax */
         -webkit-user-select: none; /* Chrome, Safari, Opera */
         -moz-user-select: none; /* Firefox */
         -ms-user-select: none; /* Internet Explorer/Edge */
-        }
+      }
     </style>
-</head>
-<body class="bg-white sm:bg-gradient-to-b sm:from-sky-300 sm:to-indigo-300 sm:flex sm:justify-center sm:items-center sm:w-full h-screen">
-    <h1 class="hidden sm:block absolute top-3 text-[40px] font-bold" style="text-shadow: 3px 3px 3px white;">Queue Visualizer</h1>
+  </head>
+  <body
+    class="bg-white sm:bg-gradient-to-b sm:from-sky-300 sm:to-indigo-300 sm:flex sm:justify-center sm:items-center sm:w-full h-screen"
+  >
+    <h1
+      class="hidden sm:block absolute top-3 text-[40px] font-bold"
+      style="text-shadow: 3px 3px 3px white"
+    >
+      Queue Visualizer
+    </h1>
 
-    <div class="sm:w-[95%] w-full sm:mt-4 relative sm:shadow-2xl bg-white sm:bg-opacity-[0.95] py-8 rounded-lg flex flex-col items-center">
-    <h1 class="block sm:hidden text-[30px] font-bold mt-2 mb-4" style="text-shadow: 3px 3px 3px rgb(127, 237, 252);">Queue Visualizer</h1>
+    <div
+      class="sm:w-[95%] w-full sm:mt-4 relative sm:shadow-2xl bg-white sm:bg-opacity-[0.95] py-8 rounded-lg flex flex-col items-center"
+    >
+      <h1
+        class="block sm:hidden text-[30px] font-bold mt-2 mb-4"
+        style="text-shadow: 3px 3px 3px rgb(127, 237, 252)"
+      >
+        Queue Visualizer
+      </h1>
 
-        <div class="flex flex-col items-center">
-            <div class="flex flex-col items-center relative duration-[2s]">
-                <div id="queue-container" class="flex duration-[2s] h-20 items-center overflow-y-hidden overflow-x-auto border-2 border-gray-400 sm:max-w-[800px] max-w-[300px] rounded-lg pl-4 pr-2 mb-1 mt-6">
-                    <!-- <div class="w-16 h-12 rounded-lg bg-blue-400 mr-2 flex justify-center items-center text-lg font-semibold text-white">5</div> -->
-                    <!-- <div class="w-16 h-12 rounded-lg bg-blue-400 mr-2 flex justify-center items-center text-lg font-semibold text-white">1562</div> -->
-                </div>
-                <h2 class="text-lg font-semibold">Queue</h2>
-            </div>
-            <div class="pb-2 w-[320px]">
-                <div class="flex items-center px-4 pt-4">
-                    <span class="text-lg mr-6 w-[60%]">Front of the queue :- </span>
-                    <div id="queue_front" class="rounded-lg bg-green-400 w-24 h-10 flex items-center justify-center" style="overflow-y: auto;">-</div>
-                </div>
-                <div class="flex items-center px-4 pt-4">
-                    <span class="text-lg mr-6 w-[60%]">Size of the queue :- </span>
-                    <div id="queue_size" class="rounded-lg bg-green-400 w-24 h-10 flex items-center justify-center">0</div>
-                </div>
-                <div id="message" class="mx-7 mt-6 opacity-0 rounded-lg duration-1000 ease-out flex justify-center items-center bg-orange-200 bg-opacity-60 py-6">queue is empty</div>
-            </div>
+      <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center relative duration-[2s]">
+          <div
+            id="queue-container"
+            class="flex duration-[2s] h-20 items-center overflow-y-hidden overflow-x-auto border-2 border-gray-400 sm:max-w-[800px] max-w-[300px] rounded-lg pl-4 pr-2 mb-1 mt-6"
+          >
+            <!-- <div class="w-16 h-12 rounded-lg bg-blue-400 mr-2 flex justify-center items-center text-lg font-semibold text-white">5</div> -->
+            <!-- <div class="w-16 h-12 rounded-lg bg-blue-400 mr-2 flex justify-center items-center text-lg font-semibold text-white">1562</div> -->
+          </div>
+          <h2 class="text-lg font-semibold">Queue</h2>
         </div>
-        <div class="controls w-full mt-4 flex sm:justify-center items-center sm:flex-row flex-col">
-            <input id="queue-input" class="border-2 border-gray-300 bg-gray-50 sm:mr-4 px-3 py-[6px] rounded-lg sm:w-[25%] w-[260px]" type="text" placeholder="Enter element" autocomplete="off">
-            <div class="flex gap-2 sm:gap-0 mt-6 sm:mt-0 sm:mb-0 mb-4">
-                <button id="enqueue_button" class="px-3 py-2 bg-sky-500 rounded-md text-white w-[85px] sm:ml-[6px] hover:scale-105 scale-100 duration-150 hover:shadow-xl active:scale-95" onclick="enqueue()">Enqueue</button>
-                <button id="dequeue_button" class="px-3 py-2 bg-sky-500 rounded-md text-white w-[85px] sm:ml-[6px] hover:scale-105 scale-100 duration-150 hover:shadow-xl active:scale-95" onclick="dequeue()">Dequeue</button>
-                <button id="front_button" class="px-3 py-2 bg-sky-500 rounded-md text-white w-[85px] sm:ml-[6px] hover:scale-105 scale-100 duration-150 hover:shadow-xl active:scale-95" onclick="front()">Front</button>
-                <button id="reset_button" class="sm:block hidden px-3 py-2 bg-red-400 rounded-md text-white w-[90px] sm:ml-[6px] hover:scale-105 scale-100 duration-150 hover:shadow-xl active:scale-95" onclick="reset()">Reset</button>
+        <div class="pb-2 w-[320px]">
+          <div class="flex items-center px-4 pt-4">
+            <span class="text-lg mr-6 w-[60%]">Front of the queue :- </span>
+            <div
+              id="queue_front"
+              class="rounded-lg bg-green-400 w-24 h-10 flex items-center justify-center"
+              style="overflow-y: auto"
+            >
+              -
             </div>
-            <button id="reset_button" class="sm:hidden block px-3 py-2 bg-red-400 rounded-md text-white w-[270px] sm:ml-[6px] hover:scale-105 scale-100 duration-150 hover:shadow-xl active:scale-95" onclick="reset()">Reset</button>
-        </div>
-        <div class="absolute right-3 top-2 flex">
-            <div id="information_div" class="w-[290px] relative left-7 hidden text-[15px] mt-10 p-5 bg-blue-200 pb-8 rounded-xl">A queue is a data structure that follows the "First In, First Out" (FIFO) principle. Imagine it like a line of people waiting to buy tickets. The first person to get in line is the first one to be served. Similarly, in a queue data structure:
-            <p class="mt-2"><b>Enqueue:</b> Adding an item to the end.</p>
-            <p><b>Dequeue:</b> Removing item from front.</p>
-            <p><b>Front:</b> Retrieves the element at the front of the queue.</p>
+          </div>
+          <div class="flex items-center px-4 pt-4">
+            <span class="text-lg mr-6 w-[60%]">Size of the queue :- </span>
+            <div
+              id="queue_size"
+              class="rounded-lg bg-green-400 w-24 h-10 flex items-center justify-center"
+            >
+              0
             </div>
-            <div onclick="iButtonToggle()" class="no-select hover:scale-110 active:scale-100 duration-200 w-6 h-6 mr-2 mt-2 border-2 border-gray-400 hover:border-blue-500 hover:text-blue-500 font-semibold rounded-full flex justify-center items-center cursor-pointer">i</div>
+          </div>
+          <div
+            id="message"
+            class="mx-7 mt-6 opacity-0 rounded-lg duration-1000 ease-out flex justify-center items-center bg-orange-200 bg-opacity-60 py-6"
+          >
+            queue is empty
+          </div>
         </div>
+      </div>
+      <div
+        class="controls w-full mt-4 flex sm:justify-center items-center sm:flex-row flex-col"
+      >
+        <input
+          id="queue-input"
+          class="border-2 border-gray-300 bg-gray-50 sm:mr-4 px-3 py-[6px] rounded-lg sm:w-[25%] w-[260px]"
+          type="text"
+          placeholder="Enter element"
+          autocomplete="off"
+        />
+        <div class="flex gap-2 sm:gap-0 mt-6 sm:mt-0 sm:mb-0 mb-4">
+          <button
+            id="enqueue_button"
+            class="px-3 py-2 bg-sky-500 rounded-md text-white w-[85px] sm:ml-[6px] hover:scale-105 scale-100 duration-150 hover:shadow-xl active:scale-95"
+            onclick="enqueue()"
+          >
+            Enqueue
+          </button>
+          <button
+            id="dequeue_button"
+            class="px-3 py-2 bg-sky-500 rounded-md text-white w-[85px] sm:ml-[6px] hover:scale-105 scale-100 duration-150 hover:shadow-xl active:scale-95"
+            onclick="dequeue()"
+          >
+            Dequeue
+          </button>
+          <button
+            id="front_button"
+            class="px-3 py-2 bg-sky-500 rounded-md text-white w-[85px] sm:ml-[6px] hover:scale-105 scale-100 duration-150 hover:shadow-xl active:scale-95"
+            onclick="front()"
+          >
+            Front
+          </button>
+          <button
+            id="reset_button"
+            class="sm:block hidden px-3 py-2 bg-red-400 rounded-md text-white w-[90px] sm:ml-[6px] hover:scale-105 scale-100 duration-150 hover:shadow-xl active:scale-95"
+            onclick="reset()"
+          >
+            Reset
+          </button>
+        </div>
+        <button
+          id="reset_button"
+          class="sm:hidden block px-3 py-2 bg-red-400 rounded-md text-white w-[270px] sm:ml-[6px] hover:scale-105 scale-100 duration-150 hover:shadow-xl active:scale-95"
+          onclick="reset()"
+        >
+          Reset
+        </button>
+      </div>
+      <div class="absolute right-3 top-2 flex">
+        <div
+          id="information_div"
+          class="w-[290px] relative left-7 hidden text-[15px] mt-10 p-5 bg-blue-200 pb-8 rounded-xl"
+        >
+          A queue is a data structure that follows the "First In, First Out"
+          (FIFO) principle. Imagine it like a line of people waiting to buy
+          tickets. The first person to get in line is the first one to be
+          served. Similarly, in a queue data structure:
+          <p class="mt-2"><b>Enqueue:</b> Adding an item to the end.</p>
+          <p><b>Dequeue:</b> Removing item from front.</p>
+          <p><b>Front:</b> Retrieves the element at the front of the queue.</p>
+        </div>
+        <div
+          onclick="iButtonToggle()"
+          class="no-select hover:scale-110 active:scale-100 duration-200 w-6 h-6 mr-2 mt-2 border-2 border-gray-400 hover:border-blue-500 hover:text-blue-500 font-semibold rounded-full flex justify-center items-center cursor-pointer"
+        >
+          i
+        </div>
+      </div>
     </div>
-    
+
     <!-- JavaScript -->
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
